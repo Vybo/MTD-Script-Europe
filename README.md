@@ -51,7 +51,9 @@ This Python script downloads map tiles from Thunderforest's Mobile Atlas for spe
     }
     zoom_levels = range(1, 15)  # Focusing on zoom levels 1 to 14
     ```
-
+    
+    Please note that I have adjusted the scripts to work with Europe. I have not tested correct behaviour with any other region.
+    
 4. Choose map style
 
     ```python

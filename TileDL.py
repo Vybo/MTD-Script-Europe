@@ -5,12 +5,12 @@ from tqdm import tqdm
 
 # Define the bounding boxes and zoom levels. Below are random examples.
 regions = {
-    "southern_ontario": (41.5, -83.5, 45.5, -75.0),
-    "las_vegas": (35.5, -116.0, 37.5, -114.0),
-    "grand_canyon": (35.5, -113.0, 37.0, -111.0)
+    "brno": (16.069281, 48.839711, 17.148912, 49.545265),
+    "praha": (14.210659, 49.903493, 14.738401, 50.242204)
 }
-zoom_levels = range(1, 15)  # Focusing on zoom levels 1 to 14
 
+zoom_levels = range(1, 15) # Focusing on zoom levels 1 to 14
+mapstyle = "atlas"
 # mapstyle = "cycle"
 # mapstyle = "transport"
 # mapstyle = "landscape"
@@ -18,13 +18,11 @@ zoom_levels = range(1, 15)  # Focusing on zoom levels 1 to 14
 # mapstyle = "transport-dark"
 # mapstyle = "spinal-map"
 # mapstyle = "pioneer"
-mapstyle = "mobile-atlas"
 # mapstyle = "neighbourhood"
-# mapstyle = "atlas"
+# mapstyle = "mobile-atlas"
 
-# API Key and output directory
-api_key = "your_api_key_here"
-output_dir = os.path.join(os.path.expanduser("~"), "Desktop", "tiles")
+api_key = "YOUR_KEY_HERE"
+output_dir = os.path.join(os.path.expanduser("~"), "Downloads", "tiles")
 os.makedirs(output_dir, exist_ok=True)
 
 def lon2tilex(lon, zoom):
@@ -51,7 +49,7 @@ def main():
     total_tiles = 0
 
     for zoom in zoom_levels:
-        for min_lat, min_lon, max_lat, max_lon in regions.values():
+        for min_lon, min_lat, max_lon, max_lat in regions.values():  # Corrected unpacking for Europe
             start_x = lon2tilex(min_lon, zoom)
             end_x = lon2tilex(max_lon, zoom)
             start_y = lat2tiley(max_lat, zoom)
@@ -61,7 +59,7 @@ def main():
 
     with tqdm(total=total_tiles, desc="Downloading tiles") as pbar:
         for zoom in zoom_levels:
-            for min_lat, min_lon, max_lat, max_lon in regions.values():
+            for min_lon, min_lat, max_lon, max_lat in regions.values():  # Corrected unpacking for Europe
                 start_x = lon2tilex(min_lon, zoom)
                 end_x = lon2tilex(max_lon, zoom)
                 start_y = lat2tiley(max_lat, zoom)
